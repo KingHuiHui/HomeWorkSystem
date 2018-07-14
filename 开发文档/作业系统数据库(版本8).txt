@@ -1,0 +1,282 @@
+DROP TABLE IF EXISTS manage;
+CREATE table manage(	
+	autoId int auto_increment not null,
+	m_number varchar(30) not null,
+	password varchar(200) not null,
+	m_name varchar(30 ) not null,
+	role varchar(100) not null,
+	key(autoId ),
+	primary key(m_number )
+);
+
+DROP TABLE IF EXISTS student;
+CREATE table student(	
+	autoId int auto_increment not null,
+	s_number varchar(30) not null,
+	password varchar(200) not null,
+	s_name varchar(30) not null,
+	key(autoId ),
+	primary key(s_number )
+);
+
+DROP TABLE IF EXISTS teacher;
+CREATE table teacher(	
+	autoId int auto_increment not null,
+	t_number varchar(30) not null,
+	password varchar(200) not null,
+	t_name varchar(30 ) not null,
+	key(autoId ),
+	primary key(t_number )
+);
+
+DROP TABLE IF EXISTS student_class;
+CREATE table student_class(	
+	autoId int auto_increment not null,
+	class_number varchar(30) not null,
+	class_name varchar(1000 ) not null,
+	key(autoId ),
+	primary key(class_number )
+);
+
+DROP TABLE IF EXISTS college;
+CREATE table college(	
+	autoId int auto_increment not null,
+	college_number varchar(30) not null,
+	college_name varchar(1000 ) not null,
+	key(autoId ),
+	primary key(college_number )
+);
+
+DROP TABLE IF EXISTS class_relationship_student;
+CREATE table class_relationship_student(	
+	autoId int auto_increment not null,
+	class_number varchar(30) not null,
+	s_number varchar(30 ) not null,
+	key(autoId ),
+	primary key(class_number,s_number)
+);
+
+DROP TABLE IF EXISTS college_relationship_teacher;
+CREATE table college_relationship_teacher(	
+	autoId int auto_increment not null,
+	college_number varchar(30) not null,
+	t_number varchar(30 ) not null,
+	key(autoId ),
+	primary key(college_number,t_number)
+);
+
+DROP TABLE IF EXISTS college_relationship_class;
+CREATE table college_relationship_class(	
+	autoId int auto_increment not null,
+	college_number varchar(30) not null,
+	class_number varchar(30 ) not null,
+	key(autoId ),
+	primary key(college_number,class_number)
+);
+
+DROP TABLE IF EXISTS course;
+CREATE table course(	
+	autoId int auto_increment not null,
+	course_number varchar(30) not null,
+	course_name varchar(30 ) not null,
+	t_number varchar(30 ) not null,
+	key(autoId ),
+	primary key(course_number)
+);
+
+DROP TABLE IF EXISTS abstract_task;
+CREATE table abstract_task(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	task_text varchar(10000) not null,
+	task_type varchar(1000 ) not null,
+	task_title varchar(1000 ) not null,
+	task_publish_time varchar(100) not null,
+	task_start_time varchar(100) not null,
+	task_end_time varchar(100) not null,
+	t_number varchar(30) not null,
+	course_number varchar(30) not null,
+	class_number varchar(30) not null,
+	result_static int default "1",
+	key(autoId ),
+	primary key(task_number)
+);
+
+
+DROP TABLE IF EXISTS file_task;
+CREATE table file_task(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	file_name varchar(1000) not null,
+	file_path varchar(10000 ) not null,
+	download_count int default 1,
+	key(autoId ),
+	primary key(task_number)
+);
+
+DROP TABLE IF EXISTS online_task;
+CREATE table online_task(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	question_type varchar(100) not null,
+	key(autoId ),
+	primary key(task_number,question_type)
+);
+
+DROP TABLE IF EXISTS choice_question;
+CREATE table choice_question(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	text varchar(10000) not null,
+	correct_option varchar(10) not null,
+	choice_options varchar(10000) not null,
+	choice_number int not null,
+	score int default 5,
+	key(autoId ),
+	primary key(task_number,choice_number)
+);
+
+DROP TABLE IF EXISTS choice_answer;
+CREATE table choice_answer(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	choice_number int not null,
+	s_number varchar(30) not null,
+	student_choice_option varchar(10) not null,
+	key(autoId ),
+	primary key(task_number,choice_number,s_number)
+);
+
+DROP TABLE IF EXISTS multiple_choice_question;
+CREATE table multiple_choice_question(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	text varchar(10000) not null,
+	correct_options varchar(100) not null,
+	options varchar(10000) not null,
+	multiple_choice_number int not null,
+	score int default 5,
+	key(autoId ),
+	primary key(task_number,multiple_choice_number)
+);
+
+DROP TABLE IF EXISTS multiple_choice_answer;
+CREATE table multiple_choice_answer(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	multiple_choice_number int not null,
+	s_number varchar(30) not null,
+	student_multiple_choice_options varchar(10) not null,
+	key(autoId ),
+	primary key(task_number,multiple_choice_number,s_number)
+);
+
+DROP TABLE IF EXISTS blank_question;
+CREATE table blank_question(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	text varchar(10000) not null,
+	blank_number int not null,
+	answer varchar(1000) not null,
+	score int default 5,
+	key(autoId ),
+	primary key(task_number,blank_number)
+);
+
+DROP TABLE IF EXISTS blank_answer;
+CREATE table blank_answer(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	blank_number int not null,
+	s_number varchar(30) not null,
+	student_answer_text varchar(10000) not null,
+	key(autoId ),
+	primary key(task_number,blank_number,s_number)
+);
+
+DROP TABLE IF EXISTS judgment_question;
+CREATE table judgment_question(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	text varchar(10000) not null,
+	judgment_number int not null,
+	answer varchar(1000) not null,
+	score int default 5,
+	key(autoId ),
+	primary key(task_number,judgment_number)
+);
+
+DROP TABLE IF EXISTS judgment_answer;
+CREATE table judgment_answer(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	judgment_number int not null,
+	s_number varchar(30) not null,
+	student_answer_text varchar(10000) not null,
+	key(autoId ),
+	primary key(task_number,judgment_number,s_number)
+);
+
+DROP TABLE IF EXISTS subjective_question;
+CREATE table subjective_question(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	text varchar(10000) not null,
+	subjective_number int not null,
+	answer varchar(1000) not null,
+	score int default 5,
+	key(autoId ),
+	primary key(task_number,subjective_number)
+);
+
+DROP TABLE IF EXISTS subjective_answer;
+CREATE table subjective_answer(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	subjective_number int not null,
+	s_number varchar(30) not null,
+	student_answer_text varchar(10000) not null,
+	key(autoId ),
+	primary key(task_number,subjective_number,s_number)
+);
+
+DROP TABLE IF EXISTS score_result;
+CREATE table score_result(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	s_number varchar(30) not null,
+	total_score varchar(3) default "0",
+	result_comment varchar(10000) default "нч",
+	key(autoId ),
+	primary key(task_number,s_number)
+);
+
+DROP TABLE IF EXISTS file_task_answer;
+CREATE table file_task_answer(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	s_number varchar(30) not null,
+	file_name varchar(1000) not null,
+	file_path varchar(10000) not null,
+	file_upload_time varchar(100) not null,
+	key(autoId ),
+	primary key(task_number,s_number)
+);
+
+DROP TABLE IF EXISTS student_task_static_record;
+CREATE table student_task_static_record(	
+	autoId int auto_increment not null,
+	task_number varchar(30) not null,
+	s_number varchar(30) not null,
+	key(autoId ),
+	primary key(task_number,s_number)
+);
+
+DROP TABLE IF EXISTS course_relationship_student;
+CREATE table course_relationship_student(	
+	autoId int auto_increment not null,
+	course_number varchar(30) not null,
+	s_number varchar(30 ) not null,
+	key(autoId ),
+	primary key(course_number,s_number)
+);
